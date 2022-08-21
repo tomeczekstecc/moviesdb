@@ -10,6 +10,9 @@ import Card from "../components/Card/Card";
 import Spinner from "../components/Spinner/Spinner";
 import React from "react";
 
+import {IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE} from "../config";
+
+
 const Home: NextPage = () => {
 
     const [query, setQuery] = React.useState('');
@@ -22,8 +25,14 @@ const Home: NextPage = () => {
     return (<main className='relative h-screen overflow-y-scroll'>
 
         <Header setQuery={setQuery}/>
-        <Hero/>
-        <Grid/>
+        {!query && data && data.pages ?
+            <Hero text={data?.pages[0]?.results[0]?.overview}
+                  title={data?.pages[0]?.results[0]?.title}
+                  imgUrl={data?.pages[0]?.results[0]?.backdrop_path ? IMAGE_BASE_URL + BACKDROP_SIZE
+                      + data?.pages[0]?.results[0]?.backdrop_path : '/no_image.jpg'}/> : null}
+
+
+        <Grid className='p-4 max-w-7` m-auto' title={query ? `Search Results:  ${data?.pages[0]?.total_results}` : }/>
         <Card/>
         <Spinner/>
     </main>)
