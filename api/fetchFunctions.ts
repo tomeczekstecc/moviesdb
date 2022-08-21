@@ -1,14 +1,11 @@
 import {Movies} from "./types";
-import {SEARCH_BASE_URL} from "../config";
 
 export const basicFetch = async <returnType>(endpoint: string): Promise<returnType> => {
     const response = await fetch(endpoint);
-
+console.log(response);
     if (!response.ok) throw new Error("Fetch failed");
 
-    const data = await response.json();
-
-    return data;
+    return await response.json();
 }
 
 
