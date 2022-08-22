@@ -32,8 +32,16 @@ const Home: NextPage = () => {
                       + data?.pages[0]?.results[0]?.backdrop_path : '/no_image.jpg'}/> : null}
 
 
-        <Grid className='p-4 max-w-7` m-auto' title={query ? `Search Results:  ${data?.pages[0]?.total_results}` : }/>
-        <Card/>
+        <Grid className='p-4 max-w-7xl` m-auto'
+              title={query ? `Search Results:  ${data?.pages[0]?.total_results}` : 'Popular movies'}>
+
+            {data && data.pages.map(page => page.results.map(movie =>
+                <div key={movie.id}><Card
+                    title={movie.original_title}
+                    imgUrl={movie.poster_path ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path : '/no_image.img'}/>
+                </div>))}
+        </Grid>
+
         <Spinner/>
     </main>)
 
