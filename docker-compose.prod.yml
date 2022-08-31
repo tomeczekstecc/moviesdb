@@ -9,7 +9,7 @@ services:
     image: moviesdb:latest
     container_name: moviesdb-prod
     env_file:
-      - ./.env:/.env
+      - .env
     networks:
       - proxy_argon
     labels:
