@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  movies:
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    image: moviesdb:latest
+    container_name: moviesdb-prod
+    env_file:
+      - ./:/.env
+    networks:
+      - proxy_argon
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.moviesdb-prod.entrypoints=http
+      - traefik.http.routers.moviesdb-prod.rule=Host(`moviesdb.argon.tslab.live`)
+      - traefik.http.routers.moviesdb-prod-secure.entrypoints=https
+
+      - traefik.http.routers.moviesdb-prod-secure.rule=Host(`moviesdb.argon.tslab.live`)
+      - traefik.http.routers.moviesdb-prod-secure.tls=true
+      - traefik.http.routers.moviesdb-prod-secure.service=moviesdb-prod
+
+      - traefik.http.services.moviesdb-prod.loadbalancer.server.port=3000
+      - traefik.docker.network=proxy_argon
+
+networks:
+  proxy_argon:
+    external: true
