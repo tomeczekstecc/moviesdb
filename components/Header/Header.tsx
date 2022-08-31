@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from "next/image";
 import SearchInput from "../SearchInput/SearchInput";
 import React from "react";
-import {Head} from "next/document";
 //Compoonents
 
 type Props = {
