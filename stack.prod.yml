@@ -12,18 +12,19 @@ services:
       - .env
     networks:
       - proxy_argon
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.moviesdb-prod.entrypoints=http
-      - traefik.http.routers.moviesdb-prod.rule=Host(`moviesdb.argon.tslab.live`)
-      - traefik.http.routers.moviesdb-prod-secure.entrypoints=https
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.moviesdb-prod.entrypoints=http
+        - traefik.http.routers.moviesdb-prod.rule=Host(`moviesdb.argon.tslab.live`)
+        - traefik.http.routers.moviesdb-prod-secure.entrypoints=https
 
-      - traefik.http.routers.moviesdb-prod-secure.rule=Host(`moviesdb.argon.tslab.live`)
-      - traefik.http.routers.moviesdb-prod-secure.tls=true
-      - traefik.http.routers.moviesdb-prod-secure.service=moviesdb-prod
+        - traefik.http.routers.moviesdb-prod-secure.rule=Host(`moviesdb.argon.tslab.live`)
+        - traefik.http.routers.moviesdb-prod-secure.tls=true
+        - traefik.http.routers.moviesdb-prod-secure.service=moviesdb-prod
 
-      - traefik.http.services.moviesdb-prod.loadbalancer.server.port=3000
-      - traefik.docker.network=proxy_argon
+        - traefik.http.services.moviesdb-prod.loadbalancer.server.port=3000
+        - traefik.docker.network=proxy_argon
 
 networks:
   proxy_argon:
